@@ -26,6 +26,7 @@ DEBUG = env_bool("DEBUG", True)
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", ["*"])
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -93,3 +94,8 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.JSONParser",
     ],
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "https://spotter-technical-frontend.vercel.app",
+    "https://spotter-technical-frontend-fsrc5kcex-agustinvalenci2s-projects.vercel.app",
+]
