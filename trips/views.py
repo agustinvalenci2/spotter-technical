@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 
 from trips.models import TripPlan
 from trips.serializers import (TripPlanRequestSerializer,
-                               TripPlanResponseSerializer)
+                               TripPlanResponseSerializer,
+                               TripPlanSerializer)
 from trips.services.eld_service import build_eld_logs
 from trips.services.hos_service import build_schedule
 from trips.services.route_service import build_route
@@ -13,6 +14,11 @@ from trips.services.summary_service import build_summary
 
 
 class TripPlanView(APIView):
+    def get(self, request: Request) -> Response:
+        trip_plans = TripPlan.objects.order_by("-created_at")
+        serializer = TripPlanSerializer(trip_plans, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request: Request) -> Response:
         request_serializer = TripPlanRequestSerializer(data=request.data)
         request_serializer.is_valid(raise_exception=True)

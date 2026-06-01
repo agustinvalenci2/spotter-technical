@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from trips.models import TripPlan
+
 
 class TripPlanRequestSerializer(serializers.Serializer):
     current_location = serializers.CharField(max_length=255)
@@ -68,3 +70,20 @@ class TripPlanResponseSerializer(serializers.Serializer):
     schedule = ScheduleSegmentSerializer(many=True)
     eld_logs = EldLogSerializer(many=True)
     summary = TripSummarySerializer()
+
+
+class TripPlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TripPlan
+        fields = [
+            "id",
+            "current_location",
+            "pickup_location",
+            "dropoff_location",
+            "current_cycle_used",
+            "route",
+            "schedule",
+            "eld_logs",
+            "summary",
+            "created_at",
+        ]
